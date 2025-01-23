@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS System</title>
+   <link rel="shortcut icon" href="image.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Emergency SOS</span>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="home.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="emergency-contacts.html" class="nav-link">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Emergency Contacts</span>
+                </a>
+                <a href="resources.html" class="nav-link">
+                    <i class="fas fa-book-medical"></i>
+                    <span>Resources</span>
+                </a>
+                <a href="#profile" class="nav-link profile-link">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="emergency-panel">
+            <div class="tagline">
+                <h1>Emergency SOS System</h1>
+                <p class="subtitle">Your Safety Companion - Quick, Reliable, Always There</p>
+            </div>
+            <div class="sos-container">
+                <button id="sos-button" class="pulse">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>SOS</span>
+                    <span class="sos-hint">Click for Emergency</span>
+                </button>
+            </div>
+            <div class="quick-actions">
+                <button class="action-btn ripple" id="share-location">
+                    <div class="btn-content">
+                        <i class="fas fa-location-arrow"></i>
+                        <span>Share Location</span>
+                        <span class="btn-description">Send Your Location</span>
+                    </div>
+                </button>
+                <button class="action-btn ripple" id="women-sos">
+                    <div class="btn-content">
+                        <i class="fas fa-venus"></i>
+                        <span>Women's SOS</span>
+                        <span class="btn-description">24/7 Women's Safety</span>
+                    </div>
+                </button>
+                <button class="action-btn ripple" id="emergency-chat">
+                    <div class="btn-content">
+                        <i class="fas fa-comments"></i>
+                        <span>Emergency Chat</span>
+                        <span class="btn-description">Instant Help Chat</span>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <section id="map-section">
+            <div class="map-container">
+                <div id="map" class="animate-in"></div>
+                <div class="map-overlay">
+                    <div class="map-controls">
+                        <button class="map-btn" id="recenter-map">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                        <button class="map-btn" id="toggle-services">
+                            <i class="fas fa-layer-group"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="nearby-services" class="animate-in">
+                <div class="services-header">
+                    <h3>Nearby Emergency Services</h3>
+                    <div class="services-filter">
+                        <button class="filter-btn active" data-type="all">
+                            <i class="fas fa-globe"></i> All
+                        </button>
+                        <button class="filter-btn" data-type="hospital">
+                            <i class="fas fa-hospital"></i> Hospitals
+                        </button>
+                        <button class="filter-btn" data-type="police">
+                            <i class="fas fa-shield-alt"></i> Police
+                        </button>
+                        <button class="filter-btn" data-type="fire_station">
+                            <i class="fas fa-fire-extinguisher"></i> Fire
+                        </button>
+                    </div>
+                </div>
+                <div id="services-list" class="custom-scrollbar"></div>
+            </div>
+        </section>
+
+        <section id="trusted-contacts">
+            <h2>Trusted Contacts</h2>
+            <div class="contacts-manager">
+                <form id="add-contact-form">
+                    <div class="form-group">
+                        <input type="text" id="contact-name" placeholder="Contact Name" required>
+                        <input type="tel" id="contact-phone" placeholder="Phone Number" required>
+                        <input type="email" id="contact-email" placeholder="Email Address" required>
+                        <button type="submit" class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            Add Contact
+                        </button>
+                    </div>
+                </form>
+                <div id="contacts-list">
+                    <!-- Contacts will be added here dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <section id="alerts-section">
+            <div class="alert-banner success">
+                <i class="fas fa-bell"></i>
+                <div class="alert-content">
+                    <div id="alert-message">No current emergencies in your area</div>
+                    <div class="alert-status">
+                        <span class="status-indicator"></span>
+                        <span>System monitoring active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="emergency-contacts">
+            <h2>Emergency Contacts</h2>
+            <div class="contacts-grid">
+                <div class="contact-card" data-type="ambulance">
+                    <div class="card-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3>Ambulance</h3>
+                    <p class="phone">911</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div class="contact-card" data-type="police">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Police</h3>
+                    <p class="phone">911</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div class="contact-card" data-type="fire">
+                    <div class="card-icon">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h3>Fire Department</h3>
+                    <p class="phone">911</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div class="contact-card" data-type="poison">
+                    <div class="card-icon">
+                        <i class="fas fa-skull-crossbones"></i>
+                    </div>
+                    <h3>Poison Control</h3>
+                    <p class="phone">1-800-222-1222</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div class="contact-card" data-type="suicide">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Suicide Prevention</h3>
+                    <p class="phone">988</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+                <div class="contact-card" data-type="domestic">
+                    <div class="card-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Domestic Violence</h3>
+                    <p class="phone">1-800-799-7233</p>
+                    <div class="card-actions">
+                        <button class="call-btn"><i class="fas fa-phone"></i> Call Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="chat-widget" class="hidden">
+        <div class="chat-header">
+            <h3>Emergency Chat</h3>
+            <button id="close-chat"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message...">
+            <button><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <div class="logo-footer">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Emergency SOS</span>
+                </div>
+                <p>Your reliable emergency response system, available 24/7 to ensure your safety and peace of mind.</p>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h4>Quick Links</h4>
+                <div class="links-container">
+                    <a href="#home" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="#services" class="footer-link"><i class="fas fa-chevron-right"></i> Services</a>
+                    <a href="#about" class="footer-link"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="#contact" class="footer-link"><i class="fas fa-chevron-right"></i> Contact</a>
+                </div>
+            </div>
+            <div class="footer-section resources">
+                <h4>Resources</h4>
+                <div class="links-container">
+                    <a href="#faq" class="footer-link"><i class="fas fa-chevron-right"></i> FAQ</a>
+                    <a href="#guide" class="footer-link"><i class="fas fa-chevron-right"></i> User Guide</a>
+                    <a href="#support" class="footer-link"><i class="fas fa-chevron-right"></i> Mental Health Support</a>
+                    <a href="#blog" class="footer-link"><i class="fas fa-chevron-right"></i> Safety Blog</a>
+                </div>
+            </div>
+            <div class="footer-section contact-info">
+                <h4>Contact Info</h4>
+                <div class="contact-details">
+                    <p><i class="fas fa-phone"></i> Emergency: 911</p>
+                    <p><i class="fas fa-envelope"></i> support@emergencysos.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Safety Street, Secure City</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Emergency SOS System. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Use</a>
+                <a href="#accessibility">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
